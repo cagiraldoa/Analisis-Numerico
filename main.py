@@ -2,8 +2,8 @@ from visionrostros import *
 from imagenFase import *
 from facestrain import *
 from recognizer import *
+from sentimientos import *
 from faces import *
-from Emociones.sentimientos import *
 from os import scandir, getcwd
 from os import remove
 import cv2
@@ -21,17 +21,12 @@ from PIL import Image
 #poner cmake en variables de entorno
 
 def main():
-    print("Bienvenido al increible codigo de reconocimiento de rostros y analisis de imagenes")
-    print("Este codigo analiza la imagen , reconoce los rostros y los guarda como nueva imagen")
-    print("Despues este rostro es comparado con fotos de las personas que esten guardadas en la carpeta\"Imagenesconocidos\", ")
-    print("e identifica la persona de la foto es una de esas")
-    print("Hecho por nosotros")
-    print("Apoyo moral por nuestro hermoso grupo de trabajo")
+    print("Sea Bienvenido al proyecto Quad Emotional Faces Tree")
     print("Que codigo desea probar:")
     print("1. Para el reconocimiento por camara")
     print("2. Para el reconocimiento de imagenes")
-    #print("3. Analisis de Rostros duque y trump")
-    print("4. Sentimientos")
+    print("3. Sentimientos")
+    print("4. Creación Quad Tree")
     op=input()
     if(op=="1"):
         trainfaces()
@@ -88,78 +83,16 @@ def main():
             print("Rostros en foto #"+str(num_foto)+str(resultados[i]))
 
 
+    
+
     if(op=="3"):
-        
-        print("Primero deje las imagenes que desea analizar en la carpeta de Imagenes Analizar ")
-        print("Desea ver los sub rostros?Y/N")
-        opc=input()
-        #limpieza de imagenes de rostros de pruebas pasadas
-        finalizar()
-        #Imagenes que se van a analisar
-        ruta= ".\Imagenes Analizar"
-        num_archivos= ls(ruta)
-        #ver rutas de imagenes 
-        '''
-        for i in num_archivos:
-            print(i)
-        '''
-        num_img=0
-        rutas=[]
-        for arc in num_archivos:
-            rutaImagen = ".\Imagenes Analizar\\"+arc
-            rutas.append(rutaImagen)
-            imagenAnalizar = cv2.imread(rutaImagen)
-            [dataRostros, imagenesRostros] = detectarRostros(imagenAnalizar) 
-            if(opc.upper()=="Y"):
-                verSubRostros(imagenesRostros)
-            crearRostros(imagenAnalizar, dataRostros)
-            
-            verRostosImagen(imagenAnalizar, dataRostros)
-            num_img+=len(dataRostros)
-        rostros=[]
-        
-        for i in ls(".\\"):
-            for n in range(0,num_img):
-                if(i=="ROI_{}.png".format(n)):
-                    rostros.append(i)
-        #reajustar tamaño imagen
-        for rostro in rostros:
-            reajustar(rostro)
 
-        for img in ls(".\Duque"):
-            reajustar(".\Duque\\"+img)
+        print("De la foto de quien quieres saber sus emociones: ")
+        persona = input()
+        emociones_(persona)
 
-        for img in ls(".\Trump"):
-            reajustar(".\Trump\\"+img)
-        
-        #ver lista de imagenes
-        for i in rostros :print(i)
-        print("Desea ver la grafica de comparacion de imagen? Y/N")    
-        ver = input()
-        d=[]
-        for rostro in rostros:
-            for img in ls(".\Duque"):
-                #duque,imagenrostros= detectarRostros(cv2.imread(".\Duque\\"+img))
-                d.append(imgxfase(rostro,".\Duque\\"+img,ver))
-        t=[]
-        for rostro in rostros:
-            for img in ls(".\Trump"):
-                #trump,imagenrostros= detectarRostros(cv2.imread(".\Trump\\"+img))
-                t.append(imgxfase(rostro,".\Trump\\"+img,ver))
 
-        print("Desea ver los datos de cross correlation de las imagenes? Y/N")
-        see=input()
-        if(see.upper()== "Y"):
-            print("Datos de imagenes con duque:")
-            for i in d: print(i)
-            print("Datos de imagenes con trump:")
-            for i in t: print(i)
-
-    if(op=="4"):
-
-        make_sets()
-
-    if(op!="1" and op!="2" and op!="3"):
+    if(op!="1" and op!="2" and op!="3" and op!="4"):
         print("ELIGIO UNA OPCION ERRONEA EL CODIGO SE VOLVERA A EJECUTAR")
         main()
 
