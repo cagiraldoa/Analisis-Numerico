@@ -4,6 +4,7 @@ from facestrain import *
 from recognizer import *
 from sentimientos import *
 from faces import *
+from quadtree import *
 from os import scandir, getcwd
 from os import remove
 import cv2
@@ -90,6 +91,14 @@ def main():
         print("De la foto de quien quieres saber sus emociones: ")
         persona = input()
         emociones_(persona)
+
+
+    if(op=="4"):
+
+        print("La foto de quien será analizada y se le creará su QuadTree: ")
+        persona = input()
+        quad(persona)
+
 
 
     if(op!="1" and op!="2" and op!="3" and op!="4"):

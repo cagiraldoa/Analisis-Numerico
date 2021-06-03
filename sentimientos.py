@@ -45,15 +45,15 @@ def emociones_(image_):
     p4=round(proba[0,3],2)
    # print("Mean value lin svm: %.3f" %np.mean(accur_lin)) #hacemos 10 ejecuciones para aumentar precision
     
-    frame=cv2.imread('dataset/'+str(image_)+'.jpg') #aqui se añade la imagen que quieres procesar pero aqui solo se carga para el resultado final
+    frame=cv2.imread('Imagenes Analizar/'+str(image_)+'.jpg') #aqui se añade la imagen que quieres procesar pero aqui solo se carga para el resultado final
     #ploteamos el resultado
     cv2.putText(frame, "Miedo: {}".format(p1), (10, 30),
     cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
-    cv2.putText(frame, "Feliz: {:.2f}".format(p2), (10, 60),
+    cv2.putText(frame, "Felicidad: {:.2f}".format(p2), (10, 60),
     cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
     cv2.putText(frame, "Neutral: {}".format(p3), (10, 90),
     cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
-    cv2.putText(frame, "Triste: {:.2f}".format(p4), (10, 120),
+    cv2.putText(frame, "Tristeza: {:.2f}".format(p4), (10, 120),
     cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
     
     
@@ -62,12 +62,14 @@ def emociones_(image_):
     cv2.imwrite('resultado.png',frame)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
+
+    return p1, p2, p3, p4
  
 def get_files(emotion, image_):
     files = glob.glob("dataset/%s/*" %emotion)
     random.shuffle(files)
     training = files[:int(len(files))] 
-    prediction=['dataset/'+str(image_)+'.jpg'] #aqui se añade la imagen que quieres procesar
+    prediction=['Imagenes Analizar/'+str(image_)+'.jpg'] #aqui se añade la imagen que quieres procesar
     return training, prediction
  
 def get_landmarks(image, detector, predictor):
